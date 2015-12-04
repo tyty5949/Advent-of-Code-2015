@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class Main {
 
     public static void main(String[] args) {
-        DayInterface part = new day1.Part2();
+        DayInterface part = new day2.Part2();
         part.getInput();
         System.out.print("\nCalculating...");
         long startTime = System.nanoTime();
