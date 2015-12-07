@@ -16,7 +16,7 @@ public class Part1 implements DayInterface {
 
     @Override
     public void getInput() {
-        input = new ArrayList<>();
+        input = new ArrayList<String>();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter some data: ");
         do {
