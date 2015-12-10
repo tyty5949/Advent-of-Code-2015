@@ -4,6 +4,7 @@ import advent.DayInterface;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ import java.util.Scanner;
  */
 public class Part1 implements DayInterface {
 
-    private String input;
+    private String string;
     private int time;
     private int answer;
 
@@ -21,35 +22,37 @@ public class Part1 implements DayInterface {
     public void getInput() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter some data: ");
-        input = scanner.nextLine();
+        string = scanner.nextLine();
         System.out.print("\nEnter the amount of times: ");
         time = Integer.parseInt(scanner.nextLine());
     }
 
     @Override
     public void calculateAnswer() {
+        char[] temp = string.toCharArray();
+        Integer[] input = new Integer[temp.length];
+        for(int i = 0; i < temp.length; i++) input[i] = Character.getNumericValue(temp[i]);
+
+        ArrayList<Integer> data;
         for(int i = 0; i < time; i++) {
-            ArrayList<Character> chars = new ArrayList<Character>();
-            ArrayList<Integer> times = new ArrayList<Integer>();
-            char lastChar = input.charAt(0);
+            data = new ArrayList<>();
             int count = 1;
-            for (int j = 1; j < input.length(); j++) {
-                if(lastChar != input.charAt(j)) {
-                    chars.add(lastChar);
-                    times.add(count);
-                    count = 1;
-                }else
+            for (int j = 0; j < input.length; j++) {
+                int c = input[j];
+                while(j < input.length - 1 && c == input[j + 1]) {
                     count++;
-                lastChar = input.charAt(j);
+                    j++;
+                }
+
+                data.add(count);
+                data.add(c);
+                count = 1;
             }
-            chars.add(lastChar);
-            times.add(count);
-            input = "";
-            for(int j = 0; j < chars.size(); j++)
-                input += times.get(j).toString() + chars.get(j).toString();
-            System.out.println("number:" + input);
+            input = data.toArray(input);
+            System.out.println("Finished iteration=" + (i + 1));
+            System.out.println(Arrays.toString(input));
         }
-        answer = input.length();
+        answer = input.length;
     }
 
     @Override
